@@ -1,0 +1,25 @@
+steps:
+  # Ensure the /workspace/published directory exists
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        mkdir -p /workspace/published
+
+  # Build or copy files to the published directory (Modify this step as needed)
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Building or copying files..."
+        # Add commands to build or copy files to /workspace/published
+
+  # Upload artifacts to Cloud Storage
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', '-r', '/workspace/published/', 'gs://meditrack7096.appspot.com/MeditrackBuildLogs/published/']
+
+# Disable logs bucket (since you don't want it)
+options:
+  logging: 'NONE'
